@@ -1,12 +1,15 @@
 import React from 'react'
 import './App.scss'
 import Main from './components/Main';
+import { StoreProvider } from './store'
 
 function App() {
   return (
-    <div className="App">
-      <Main />
-    </div>
+    <StoreProvider>
+      <div className="App">
+        <Main />
+      </div>
+    </StoreProvider>
   )
 }
 
