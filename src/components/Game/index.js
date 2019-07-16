@@ -20,6 +20,7 @@ function Game() {
     tick()
     return () => cancelAnimationFrame(frame)
   }, [state, ctx])
+  const hero = state.sprites.hero
   return <>
     <KeyController />
     <div style={{ display: "none" }}>
@@ -30,10 +31,12 @@ function Game() {
       <img src="/assets/rock.png"
         id="rock" alt="" />
     </div>
-    <canvas width={state.config.canvas.width} height={state.config.canvas.height} ref={canvasRef}></canvas>
     <div>
-      Power: {state.sprites.hero.power}
+      <div>HP: {hero.hp}/{hero.hpMax}</div>
+      <div>MP: {hero.mp}/{hero.mpMax}</div>
+      <div>Power: {hero.power}</div>
     </div>
+    <canvas width={state.config.canvas.width} height={state.config.canvas.height} ref={canvasRef}></canvas>
   </>
 }
 

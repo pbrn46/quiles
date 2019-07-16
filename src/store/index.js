@@ -18,10 +18,10 @@ const HERO_TEMPLATE = {
   y: 0,
   direction: 'left',
   hp: 100,
-  maxHp: 100,
+  hpMax: 100,
   mp: 50,
-  maxMp: 50,
-  power: 0,
+  mpMax: 50,
+  power: 100,
   image: "giraffe"
 }
 
