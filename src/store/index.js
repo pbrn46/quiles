@@ -13,48 +13,41 @@ const TILE_TEMPLATE_ROCK = {
   passible: false,
 }
 
+const HERO_TEMPLATE = {
+  x: 0,
+  y: 0,
+  direction: 'left',
+  hp: 100,
+  maxHp: 100,
+  mp: 50,
+  maxMp: 50,
+  power: 0,
+  image: "giraffe"
+}
+
 const INITIAL_STATE = {
   sprites: {
-    hero: {
-      x: 0,
-      y: 0,
-      direction: 'left',
-      hp: 100,
-      maxHp: 100,
-      mp: 50,
-      maxMp: 50,
-      power: 0,
-      image: "giraffe"
-    },
+    hero: HERO_TEMPLATE,
     items: [
-      {
-        ...ITEM_TEMPLATE_TREE,
-        x: 5,
-        y: 8,
-      },
-      {
-        ...ITEM_TEMPLATE_TREE,
-        x: 5,
-        y: 10,
-      },
-      {
-        ...ITEM_TEMPLATE_TREE,
-        x: 2,
-        y: 12,
-      },
+      { ...ITEM_TEMPLATE_TREE, x: 5, y: 8, },
+      { ...ITEM_TEMPLATE_TREE, x: 5, y: 10, },
+      { ...ITEM_TEMPLATE_TREE, x: 2, y: 12, },
+      { ...ITEM_TEMPLATE_TREE, x: 3, y: 12, },
+      { ...ITEM_TEMPLATE_TREE, x: 4, y: 12, },
     ],
     tiles: [
-      {
-        ...TILE_TEMPLATE_ROCK,
-        x: 6,
-        y: 9,
-      }
+      { ...TILE_TEMPLATE_ROCK, x: 6, y: 9, },
+      { ...TILE_TEMPLATE_ROCK, x: 8, y: 9, },
+      { ...TILE_TEMPLATE_ROCK, x: 6, y: 10, },
+      { ...TILE_TEMPLATE_ROCK, x: 8, y: 10, },
+      { ...TILE_TEMPLATE_ROCK, x: 6, y: 11, },
+      { ...TILE_TEMPLATE_ROCK, x: 7, y: 11, },
+      { ...TILE_TEMPLATE_ROCK, x: 8, y: 11, },
     ]
   },
   map: {
     width: 60,
     height: 50,
-    // tiles: {},
   },
   config: {
     canvas: {

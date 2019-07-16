@@ -20,7 +20,7 @@ const drawTiles = (state, ctx) => {
 }
 
 const heroFrameCount = 4
-const heroTicksPerFrame = 90
+const heroTicksPerFrame = 10
 var heroTicks = 0
 var heroFrameIndex = 0
 const drawHero = (state, ctx) => {
