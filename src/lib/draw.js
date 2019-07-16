@@ -20,9 +20,18 @@ const drawTiles = (state, ctx) => {
 }
 
 const heroFrameCount = 4
-const heroTicksPerFrame = 60
-const drawHero = (state, ctx, ticks) => {
-  var heroFrameIndex = Math.floor(ticks / heroTicksPerFrame) % heroFrameCount
+const heroTicksPerFrame = 90
+var heroTicks = 0
+var heroFrameIndex = 0
+const drawHero = (state, ctx) => {
+  heroTicks++
+  if (heroTicks >= heroTicksPerFrame) {
+    heroTicks = 0
+    heroFrameIndex++
+    if (heroFrameIndex >= heroFrameCount) {
+      heroFrameIndex = 0
+    }
+  }
   const hero = state.sprites.hero
   var [dx, dy] = posToPx(state, hero.x, hero.y)
   var sx = heroFrameIndex * state.config.tiles.width
@@ -50,10 +59,10 @@ const drawItems = (state, ctx) => {
   }
 }
 
-export const draw = (state, ctx, ticks) => {
+export const draw = (state, ctx) => {
   if (!ctx) return
   ctx.clearRect(0, 0, state.config.canvas.width, state.config.canvas.height)
-  drawTiles(state, ctx, ticks)
-  drawItems(state, ctx, ticks)
-  drawHero(state, ctx, ticks)
+  drawTiles(state, ctx)
+  drawItems(state, ctx)
+  drawHero(state, ctx)
 }
