@@ -32,7 +32,7 @@ function KeyController() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      const { x, y } = state.sprites.hero
+      const { x, y, power } = state.sprites.hero
       console.log(e.key)
       switch (e.key) {
         case 'ArrowUp':
@@ -51,7 +51,7 @@ function KeyController() {
           dispatch({ type: 'HERO_GET_ITEMS', x, y, items: getItemsAt(state, x, y) })
           break
         case 's':
-          dispatch({ type: 'HERO_SPIT_TREE', x, y })
+          dispatch({ type: 'HERO_SPIT_TREE', x, y, power })
           break
         default:
       }

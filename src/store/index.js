@@ -105,6 +105,9 @@ function heroReducer(state, action) {
         }
       }
       return { ...state, ...heroAfterItems }
+    case 'HERO_SPIT_TREE':
+      if (action.power < 50) return state
+      return {...state, power: state.power - 50}
     default:
       return state
   }
@@ -115,6 +118,7 @@ function itemsReducer(state, action) {
     case 'HERO_GET_ITEMS':
       return state.filter(item => !(item.x === action.x && item.y === action.y))
     case 'HERO_SPIT_TREE':
+      if (action.power < 50) return state
       return [...state, { ...ITEM_TEMPLATE_TREE, x: action.x, y: action.y }]
     default:
       return state
