@@ -1,21 +1,31 @@
-import React, { useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useStore } from '../../store'
 import KeyController from '../KeyController';
-import { draw } from './draw'
+import { draw } from '../../lib/draw'
+
+// var ticks = 0
 
 function Game() {
   var [state] = useStore()
+  var [ctx, setCtx] = useState(null)
+  var [ticks, setTicks] = useState(0)
   var canvasRef = useRef()
 
+  useEffect(() => {
+    setCtx(canvasRef.current.getContext('2d'))
+    console.log("Canvas")
+  }, [canvasRef])
+
   const tick = useCallback(() => {
-    const ctx = canvasRef.current.getContext('2d')
-    draw(state, ctx)
-  }, [state])
+    draw(state, ctx, ticks)
+  }, [state, ctx, ticks])
+
 
   // Run the game
   useEffect(() => {
+    setTicks(ticks + 1)
     window.requestAnimationFrame(tick)
-  }, [tick])
+  }, [tick, ticks])
   return <>
     <KeyController />
     <canvas width={state.config.canvas.width} height={state.config.canvas.height} ref={canvasRef}></canvas>

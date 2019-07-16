@@ -1,14 +1,4 @@
-const posXToPx = (state, xPos) => {
-  return state.config.tiles.width * xPos
-}
-
-const posYToPx = (state, yPos) => {
-  return state.config.tiles.height * yPos
-}
-
-const posToPx = (state, xPos, yPos) => {
-  return [posXToPx(state, xPos), posYToPx(state, yPos)]
-}
+import {posToPx} from './util'
 
 const drawTiles = (state, ctx) => {
   for (let y = 0; y < state.map.height; y++) {
@@ -29,19 +19,18 @@ const drawTiles = (state, ctx) => {
   }
 }
 
-const drawHero = (state, ctx) => {
+const heroFrameCount = 4
+const heroTicksPerFrame = 60
+const drawHero = (state, ctx, ticks) => {
+  var heroFrameIndex = Math.floor(ticks / heroTicksPerFrame) % heroFrameCount
   const hero = state.sprites.hero
-  var [xPx, yPx] = posToPx(state, hero.x, hero.y)
+  var [dx, dy] = posToPx(state, hero.x, hero.y)
+  var sx = heroFrameIndex * state.config.tiles.width
+  var sy = hero.direction === "left" ? 0 : state.config.tiles.height
   const image = document.getElementById(state.sprites.hero.image)
-  if (hero.direction === 'right') {
-    ctx.scale(-1, 1)
-    ctx.drawImage(image, xPx * -1, yPx, state.config.tiles.width * -1, state.config.tiles.height)
-    ctx.scale(-1, 1)
-  }
-  else {
-
-    ctx.drawImage(image, xPx, yPx, state.config.tiles.width, state.config.tiles.height)
-  }
+  ctx.drawImage(image,
+    sx, sy, state.config.tiles.width, state.config.tiles.height,
+    dx, dy, state.config.tiles.width, state.config.tiles.height)
 }
 
 const drawItems = (state, ctx) => {
@@ -61,10 +50,10 @@ const drawItems = (state, ctx) => {
   }
 }
 
-export const draw = (state, ctx) => {
+export const draw = (state, ctx, ticks) => {
   if (!ctx) return
   ctx.clearRect(0, 0, state.config.canvas.width, state.config.canvas.height)
-  drawTiles(state, ctx)
-  drawItems(state, ctx)
-  drawHero(state, ctx)
+  drawTiles(state, ctx, ticks)
+  drawItems(state, ctx, ticks)
+  drawHero(state, ctx, ticks)
 }

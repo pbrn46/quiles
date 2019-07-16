@@ -1,5 +1,7 @@
 import React, { useReducer, createContext, useContext } from 'react'
 
+import { isPassible } from '../lib/util'
+
 const ITEM_TEMPLATE_TREE = {
   itemType: "powerBoost",
   effects: { power: 50 },
@@ -34,17 +36,11 @@ const INITIAL_STATE = {
         ...ITEM_TEMPLATE_TREE,
         x: 5,
         y: 10,
-        itemType: "powerBoost",
-        effects: { power: 50 },
-        image: 'tree',
       },
       {
         ...ITEM_TEMPLATE_TREE,
         x: 2,
         y: 12,
-        itemType: "powerBoost",
-        effects: { power: 50 },
-        image: 'tree',
       },
     ],
     tiles: [
@@ -77,25 +73,51 @@ var context = createContext(null)
 function reducer(state, action) {
   return {
     ...state,
-    sprites: spritesReducer(state.sprites, action),
+    sprites: spritesReducer(state.sprites, action, state),
   }
 }
 
-function spritesReducer(state, action) {
+function spritesReducer(sprites, action, state) {
   return {
-    ...state,
-    items: itemsReducer(state.items, action),
-    hero: heroReducer(state.hero, action)
+    ...sprites,
+    items: itemsReducer(sprites.items, action, state),
+    hero: heroReducer(sprites.hero, action, state)
   }
 }
-function heroReducer(state, action) {
+function heroReducer(hero, action, state) {
   switch (action.type) {
     case 'UPDATE_HERO':
-      var updateMerge = { ...action }
+      let updateMerge = { ...action }
       delete updateMerge.type
-      return { ...state, ...updateMerge }
+      return { ...hero, ...updateMerge }
+    case 'HERO_MOVE':
+      let x = hero.x
+      let y = hero.y
+      let direction = hero.direction
+      switch (action.direction) {
+        case 'up':
+          y--
+          break
+        case 'down':
+          y++
+          break
+        case 'left':
+          x--
+          direction = 'left'
+          break
+        case 'right':
+          x++
+          direction = 'right'
+          break
+        default:
+      }
+      if (!isPassible(state, x, y)) {
+        x = hero.x
+        y = hero.y
+      }
+      return { ...hero, x, y, direction }
     case 'HERO_GET_ITEMS':
-      let heroAfterItems = { ...state }
+      let heroAfterItems = { ...hero }
       for (let item of action.items) {
         for (let effect in item.effects) {
           heroAfterItems = {
@@ -104,24 +126,24 @@ function heroReducer(state, action) {
           }
         }
       }
-      return { ...state, ...heroAfterItems }
+      return { ...hero, ...heroAfterItems }
     case 'HERO_SPIT_TREE':
-      if (action.power < 50) return state
-      return {...state, power: state.power - 50}
+      if (action.power < 50) return hero
+      return { ...hero, power: hero.power - 50 }
     default:
-      return state
+      return hero
   }
 }
 
-function itemsReducer(state, action) {
+function itemsReducer(items, action, state) {
   switch (action.type) {
     case 'HERO_GET_ITEMS':
-      return state.filter(item => !(item.x === action.x && item.y === action.y))
+      return items.filter(item => !(item.x === action.x && item.y === action.y))
     case 'HERO_SPIT_TREE':
-      if (action.power < 50) return state
-      return [...state, { ...ITEM_TEMPLATE_TREE, x: action.x, y: action.y }]
+      if (state.sprites.hero.power < 50) return items
+      return [...items, { ...ITEM_TEMPLATE_TREE, x: state.sprites.hero.x, y: state.sprites.hero.y }]
     default:
-      return state
+      return items
   }
 }
 
