@@ -4,8 +4,8 @@ const drawTiles = (state, ctx) => {
   for (let y = 0; y < state.map.height; y++) {
     for (let x = 0; x < state.map.width; x++) {
       var [xPx, yPx] = posToPx(state, x, y)
-      ctx.fillStyle = "#fff"
-      ctx.strokeStyle = "#f5f5f5"
+      ctx.fillStyle = "#2b5"
+      ctx.strokeStyle = "#3ac765"
       ctx.lineWidth = 1
       ctx.fillRect(xPx, yPx, state.config.tiles.width, state.config.tiles.height)
       ctx.strokeRect(xPx, yPx, state.config.tiles.width, state.config.tiles.height)
