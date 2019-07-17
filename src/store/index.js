@@ -1,17 +1,6 @@
 import React, { useReducer, createContext, useContext } from 'react'
 
-import { isPassible } from '../lib/util'
-
-const ITEM_TEMPLATE_TREE = {
-  itemType: "powerBoost",
-  effects: { power: 50 },
-  image: 'tree',
-}
-const TILE_TEMPLATE_ROCK = {
-  name: 'rock',
-  image: 'rock',
-  passible: false,
-}
+import { isPassible, getNeighbourSprites } from '../lib/util'
 
 const HERO_TEMPLATE = {
   x: 0,
@@ -23,6 +12,27 @@ const HERO_TEMPLATE = {
   mpMax: 50,
   power: 100,
   image: "giraffe"
+}
+const FOE_TEMPLATE = {
+  x: 0,
+  y: 0,
+  // direction: 'left',
+  hp: 100,
+  hpmax: 100,
+  mp: 50,
+  mpmax: 50,
+  power: 100,
+  image: "lion"
+}
+const ITEM_TEMPLATE_TREE = {
+  itemType: "powerBoost",
+  effects: { power: 50 },
+  image: 'tree',
+}
+const TILE_TEMPLATE_ROCK = {
+  name: 'rock',
+  image: 'rock',
+  passible: false,
 }
 
 const INITIAL_STATE = {
@@ -43,7 +53,11 @@ const INITIAL_STATE = {
       { ...TILE_TEMPLATE_ROCK, x: 6, y: 11, },
       { ...TILE_TEMPLATE_ROCK, x: 7, y: 11, },
       { ...TILE_TEMPLATE_ROCK, x: 8, y: 11, },
+    ],
+    foes: [
+      { ...FOE_TEMPLATE, x: 3, y: 2 },
     ]
+
   },
   map: {
     width: 60,
@@ -84,9 +98,7 @@ function heroReducer(hero, action, state) {
       delete updateMerge.type
       return { ...hero, ...updateMerge }
     case 'HERO_MOVE':
-      let x = hero.x
-      let y = hero.y
-      let direction = hero.direction
+      let { x, y, hp, direction } = hero
       switch (action.direction) {
         case 'up':
           y--
@@ -108,7 +120,15 @@ function heroReducer(hero, action, state) {
         x = hero.x
         y = hero.y
       }
-      return { ...hero, x, y, direction }
+      if (hp <= 0) {
+        x = hero.x
+        y = hero.y
+        direction = hero.direction
+      }
+      if (getNeighbourSprites(state, x, y, 'foes').length > 0) {
+        hp = 0
+      }
+      return { ...hero, x, y, direction, hp }
     case 'HERO_GET_ITEMS':
       let heroAfterItems = { ...hero }
       for (let item of action.items) {

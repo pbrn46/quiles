@@ -1,4 +1,4 @@
-import {posToPx} from './util'
+import { posToPx } from './util'
 
 const drawTiles = (state, ctx) => {
   for (let y = 0; y < state.map.height; y++) {
@@ -25,6 +25,7 @@ var heroTicks = 0
 var heroFrameIndex = 0
 const drawHero = (state, ctx) => {
   heroTicks++
+  let { width, height } = state.config.tiles
   if (heroTicks >= heroTicksPerFrame) {
     heroTicks = 0
     heroFrameIndex++
@@ -34,12 +35,23 @@ const drawHero = (state, ctx) => {
   }
   const hero = state.sprites.hero
   var [dx, dy] = posToPx(state, hero.x, hero.y)
-  var sx = heroFrameIndex * state.config.tiles.width
-  var sy = hero.direction === "left" ? 0 : state.config.tiles.height
+  var sx = heroFrameIndex * width
+  var sy = hero.direction === "left" ? 0 : height
   const image = document.getElementById(state.sprites.hero.image)
   ctx.drawImage(image,
-    sx, sy, state.config.tiles.width, state.config.tiles.height,
-    dx, dy, state.config.tiles.width, state.config.tiles.height)
+    sx, sy, width, height,
+    dx, dy, width, height)
+  if (hero.hp <= 0) {
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "#f00"
+    ctx.moveTo(dx, dy)
+    ctx.lineTo(dx + width, dy + height)
+
+    ctx.moveTo(dx + width, dy)
+    ctx.lineTo(dx, dy + height)
+    ctx.stroke()
+  }
 }
 
 const drawItems = (state, ctx) => {
@@ -59,10 +71,28 @@ const drawItems = (state, ctx) => {
   }
 }
 
+const drawFoes = (state, ctx) => {
+  const foes = state.sprites.foes
+  for (let foe of foes) {
+    var [xPx, yPx] = posToPx(state, foe.x, foe.y)
+    if (foe.image) {
+      const image = document.getElementById(foe.image)
+      ctx.drawImage(image, xPx, yPx, state.config.tiles.width, state.config.tiles.height)
+    } else {
+      ctx.fillStyle = "green"
+      ctx.strokeStyle = "#000000"
+      ctx.lineWidth = 1
+      ctx.fillRect(xPx, yPx, state.config.tiles.width, state.config.tiles.height)
+      ctx.strokeRect(xPx, yPx, state.config.tiles.width, state.config.tiles.height)
+    }
+  }
+}
+
 export const draw = (state, ctx) => {
   if (!ctx) return
   ctx.clearRect(0, 0, state.config.canvas.width, state.config.canvas.height)
   drawTiles(state, ctx)
   drawItems(state, ctx)
+  drawFoes(state, ctx)
   drawHero(state, ctx)
 }

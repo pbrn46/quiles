@@ -26,6 +26,8 @@ function Game() {
     <div style={{ display: "none" }}>
       <img src="/assets/giraffe.png"
         id="giraffe" alt="" />
+      <img src="/assets/lion.png"
+        id="lion" alt="" />
       <img src="/assets/tree.png"
         id="tree" alt="" />
       <img src="/assets/rock.png"

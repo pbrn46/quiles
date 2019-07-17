@@ -19,3 +19,30 @@ export const isPassible = (state, x, y) => {
   }
   return true
 }
+
+export const inPositions = (x, y, positions) => {
+  for (let position of positions) {
+    if (x === position[0] && y === position[1]) return true
+  }
+  return false
+}
+
+export const getNeighbourPositions = (x, y) => {
+  return [
+    [x - 1, y - 1],
+    [x, y - 1],
+    [x + 1, y - 1],
+    [x + 1, y],
+    [x + 1, y + 1],
+    [x, y + 1],
+    [x - 1, y + 1],
+    [x - 1, y],
+  ]
+}
+
+export const getNeighbourSprites = (state, x, y, spriteType) => {
+  var neighbourPositions = getNeighbourPositions(x, y)
+  return state.sprites[spriteType].filter(sprite => (
+    inPositions(sprite.x, sprite.y, neighbourPositions)
+  ))
+}
