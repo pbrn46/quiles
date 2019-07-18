@@ -12,6 +12,12 @@ export default function viewReducer(view, action, state) {
           + Math.floor(state.config.tileSizePx / 2)
           - Math.floor(state.view.heightPx / 2),
       }
+    case 'WINDOW_RESIZE':
+      return {
+        ...view,
+        widthPx: action.widthPx,
+        heightPx: action.heightPx,
+      }
     default:
       return view
   }

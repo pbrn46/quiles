@@ -1,1 +1,19 @@
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
+
+// body,
+// #root,
+// .App,
+// .Main,
+// .Game {
+//   height: 100%;
+// }
+.Game {
+  position: relative;
+  height: 90vh;
+}
+
+.ResizeWatcher {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

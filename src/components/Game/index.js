@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useStore } from '../../store'
 import KeyController from '../KeyController'
+import ResizeWatcher from '../ResizeWatcher'
 import { draw } from '../../lib/draw'
 import * as images from '../../lib/images'
 
@@ -25,7 +26,8 @@ function Game() {
     dispatch({ type: 'VIEW_CENTER' })
   }, [dispatch])
   const hero = state.sprites.hero
-  return <>
+  return <div className="Game">
+    <ResizeWatcher />
     <KeyController />
     <div className="row">
       <div className="col-6">
@@ -55,7 +57,7 @@ function Game() {
       </div>
     </div>
     <canvas width={state.view.widthPx} height={state.view.heightPx} ref={canvasRef}></canvas>
-  </>
+  </div>
 }
 
 export default Game
