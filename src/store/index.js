@@ -78,6 +78,11 @@ const INITIAL_STATE = {
 var context = createContext(null)
 
 function reducer(state, action) {
+  switch (action.type) {
+    case 'RESET_GAME':
+      return INITIAL_STATE
+    default:
+  }
   return {
     ...state,
     sprites: spritesReducer(state.sprites, action, state),

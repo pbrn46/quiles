@@ -5,7 +5,7 @@ import { draw } from '../../lib/draw'
 
 
 function Game() {
-  var [state] = useStore()
+  var [state, dispatch] = useStore()
   var [ctx, setCtx] = useState(null)
   var canvasRef = useRef()
   useEffect(() => {
@@ -37,6 +37,14 @@ function Game() {
       <div>HP: {hero.hp}/{hero.hpMax}</div>
       <div>MP: {hero.mp}/{hero.mpMax}</div>
       <div>Power: {hero.power}</div>
+      {hero.hp <= 0 && <div>
+        <div>
+          YOU ARE DEAD.
+        </div>
+        <div>
+          <button onClick={e => dispatch({type: "RESET_GAME"})}>Restart</button>
+        </div>
+      </div>}
     </div>
     <canvas width={state.config.canvas.width} height={state.config.canvas.height} ref={canvasRef}></canvas>
   </>
