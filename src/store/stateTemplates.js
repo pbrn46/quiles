@@ -27,6 +27,12 @@ export const ITEM_TEMPLATE_TREE = {
   image: 'tree',
 }
 
+export const ITEM_TEMPLATE_FLOWER = {
+  itemType: "powerBoost",
+  effects: { power: 25 },
+  image: 'flower',
+}
+
 export const TILE_TEMPLATE_ROCK = {
   name: 'rock',
   image: 'rock',
@@ -55,6 +61,8 @@ export const INITIAL_STATE = {
       { ...ITEM_TEMPLATE_TREE, x: 2, y: 12, },
       { ...ITEM_TEMPLATE_TREE, x: 3, y: 12, },
       { ...ITEM_TEMPLATE_TREE, x: 4, y: 12, },
+      { ...ITEM_TEMPLATE_FLOWER, x: 8, y: 14, },
+      { ...ITEM_TEMPLATE_FLOWER, x: 11, y: 11, },
     ],
     tiles: [
       { ...TILE_TEMPLATE_ROCK, x: 6, y: 9, },
@@ -66,7 +74,7 @@ export const INITIAL_STATE = {
       { ...TILE_TEMPLATE_ROCK, x: 8, y: 11, },
     ],
     foes: [
-      { ...FOE_TEMPLATE, x: 3, y: 2 },
+      { ...FOE_TEMPLATE, x: 12, y: 15, },
     ]
   },
   inventory: {

@@ -10,4 +10,5 @@ export const sprites = {
   lion: loadImage("/assets/lion.png"),
   tree: loadImage("/assets/tree.png"),
   rock: loadImage("/assets/rock.png"),
+  flower: loadImage("/assets/flower.png"),
 }
