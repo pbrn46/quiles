@@ -120,11 +120,6 @@ function heroReducer(hero, action, state) {
         x = hero.x
         y = hero.y
       }
-      if (hp <= 0) {
-        x = hero.x
-        y = hero.y
-        direction = hero.direction
-      }
       if (getNeighbourSprites(state, x, y, 'foes').length > 0) {
         hp = 0
       }
