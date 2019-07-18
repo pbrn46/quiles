@@ -18,7 +18,10 @@ function reducer(state, action) {
   }
   switch (action.type) {
     case 'RESET_GAME':
-      return INITIAL_STATE
+      let resetState = {...INITIAL_STATE}
+      resetState.view.widthPx = state.view.widthPx
+      resetState.view.heightPx = state.view.heightPx
+      return resetState
     default:
       break
   }
