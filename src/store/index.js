@@ -1,6 +1,6 @@
 import React, { useReducer, createContext, useContext } from 'react'
 
-import { isPassible, getNeighbourSprites } from '../lib/util'
+import { posToPx, isPassible, getNeighbourSprites } from '../lib/util'
 
 const HERO_TEMPLATE = {
   x: 0,
@@ -60,8 +60,8 @@ const INITIAL_STATE = {
 
   },
   map: {
-    width: 80,
-    height: 50,
+    width: 30,
+    height: 20,
   },
   view: {
     widthPx: 800,
@@ -77,6 +77,13 @@ const INITIAL_STATE = {
 var context = createContext(null)
 
 function reducer(state, action) {
+  if (Array.isArray(action)) {
+    let newState = state
+    for (let subAction of action) {
+      newState = reducer(newState, subAction)
+    }
+    return newState
+  }
   switch (action.type) {
     case 'RESET_GAME':
       return INITIAL_STATE
@@ -93,7 +100,15 @@ function reducer(state, action) {
 function viewReducer(view, action, state) {
   switch (action.type) {
     case 'VIEW_CENTER':
-      return view
+      return {
+        ...view,
+        xPx: posToPx(state, state.sprites.hero.x)
+          + Math.floor(state.config.tileSizePx / 2)
+          - Math.floor(state.view.widthPx / 2),
+        yPx: posToPx(state, state.sprites.hero.y)
+          + Math.floor(state.config.tileSizePx / 2)
+          - Math.floor(state.view.heightPx / 2),
+      }
     default:
       return view
   }

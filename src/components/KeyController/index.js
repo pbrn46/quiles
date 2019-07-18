@@ -17,19 +17,27 @@ function KeyController() {
       switch (e.key) {
         case 'ArrowUp':
           if (hp <= 0) break
-          dispatch({ type: 'HERO_MOVE', direction: 'up' })
+          dispatch([
+            { type: 'HERO_MOVE', direction: 'up' },
+            { type: 'VIEW_CENTER' }])
           break
         case 'ArrowDown':
           if (hp <= 0) break
-          dispatch({ type: 'HERO_MOVE', direction: 'down' })
+          dispatch([
+            { type: 'HERO_MOVE', direction: 'down' },
+            { type: 'VIEW_CENTER' }])
           break
         case 'ArrowLeft':
           if (hp <= 0) break
-          dispatch({ type: 'HERO_MOVE', direction: 'left' })
+          dispatch([
+            { type: 'HERO_MOVE', direction: 'left' },
+            { type: 'VIEW_CENTER' }])
           break
         case 'ArrowRight':
           if (hp <= 0) break
-          dispatch({ type: 'HERO_MOVE', direction: 'right' })
+          dispatch([
+            { type: 'HERO_MOVE', direction: 'right' },
+            { type: 'VIEW_CENTER' }])
           break
         case 'g':
           if (hp <= 0) break

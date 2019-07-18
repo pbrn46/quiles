@@ -20,6 +20,9 @@ function Game() {
     tick()
     return () => cancelAnimationFrame(frame)
   }, [state, ctx])
+  useEffect(() => {
+    dispatch({type: 'VIEW_CENTER'})
+  }, [dispatch])
   const hero = state.sprites.hero
   return <>
     <KeyController />
@@ -47,7 +50,7 @@ function Game() {
           <div>
             <button
               className="btn btn-outline-secondary"
-              onClick={e => dispatch({ type: "RESET_GAME" })}>Restart</button>
+              onClick={e => dispatch([{ type: 'RESET_GAME' }, {type: 'VIEW_CENTER'}])}>Restart</button>
           </div>
         </div>}
       </div>
