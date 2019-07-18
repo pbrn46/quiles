@@ -12,6 +12,9 @@ export const posToPx = (state, xPos, yPos) => {
 }
 
 export const isPassible = (state, x, y) => {
+  if (x < 0 || x >= state.map.width
+    || y < 0 || y >= state.map.height)
+    return false
   for (let tile of state.sprites.tiles) {
     if (tile.x === x && tile.y === y) {
       if (!tile.passible) return false

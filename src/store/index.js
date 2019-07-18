@@ -60,8 +60,8 @@ const INITIAL_STATE = {
 
   },
   map: {
-    width: 60,
-    height: 50,
+    width: 20,
+    height: 15,
   },
   config: {
     canvas: {
@@ -82,6 +82,7 @@ function reducer(state, action) {
     case 'RESET_GAME':
       return INITIAL_STATE
     default:
+      break
   }
   return {
     ...state,
