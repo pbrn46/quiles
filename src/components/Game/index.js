@@ -52,7 +52,7 @@ function Game() {
         </div>}
       </div>
     </div>
-    <canvas width={state.config.canvas.width} height={state.config.canvas.height} ref={canvasRef}></canvas>
+    <canvas width={state.view.widthPx} height={state.view.heightPx} ref={canvasRef}></canvas>
   </>
 }
 

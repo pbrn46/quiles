@@ -1,14 +1,6 @@
 
-export const posXToPx = (state, xPos) => {
-  return state.config.tiles.width * xPos
-}
-
-export const posYToPx = (state, yPos) => {
-  return state.config.tiles.height * yPos
-}
-
-export const posToPx = (state, xPos, yPos) => {
-  return [posXToPx(state, xPos), posYToPx(state, yPos)]
+export const posToPx = (state, pos) => {
+  return state.config.tileSizePx * pos
 }
 
 export const isPassible = (state, x, y) => {

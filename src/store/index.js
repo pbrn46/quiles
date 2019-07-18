@@ -60,18 +60,17 @@ const INITIAL_STATE = {
 
   },
   map: {
-    width: 20,
-    height: 15,
+    width: 80,
+    height: 50,
+  },
+  view: {
+    widthPx: 800,
+    heightPx: 500,
+    xPx: 0,
+    yPx: 0,
   },
   config: {
-    canvas: {
-      width: 800,
-      height: 500,
-    },
-    tiles: {
-      width: 32,
-      height: 32,
-    }
+    tileSizePx: 32,
   }
 }
 
@@ -86,10 +85,19 @@ function reducer(state, action) {
   }
   return {
     ...state,
+    view: viewReducer(state.view, action, state),
     sprites: spritesReducer(state.sprites, action, state),
   }
 }
 
+function viewReducer(view, action, state) {
+  switch (action.type) {
+    case 'VIEW_CENTER':
+      return view
+    default:
+      return view
+  }
+}
 function spritesReducer(sprites, action, state) {
   return {
     ...sprites,
