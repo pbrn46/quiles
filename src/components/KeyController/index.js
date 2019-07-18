@@ -12,7 +12,7 @@ function KeyController() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       var preventDefault = true
-      const { x, y, hp, power } = state.sprites.hero
+      const { x, y, hp } = state.sprites.hero
       console.log(e.key)
       switch (e.key) {
         case 'ArrowUp':
@@ -45,7 +45,7 @@ function KeyController() {
           break
         case 's':
           if (hp <= 0) break
-          dispatch({ type: 'HERO_SPIT_TREE', x, y, power })
+          dispatch({ type: 'HERO_SPIT_ITEM', x, y })
           break
         default:
           preventDefault = false

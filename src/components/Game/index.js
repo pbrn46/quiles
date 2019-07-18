@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useStore } from '../../store'
-import KeyController from '../KeyController';
+import KeyController from '../KeyController'
 import { draw } from '../../lib/draw'
+import * as images from '../../lib/images'
 
 
 function Game() {
@@ -21,7 +22,7 @@ function Game() {
     return () => cancelAnimationFrame(frame)
   }, [state, ctx])
   useEffect(() => {
-    dispatch({type: 'VIEW_CENTER'})
+    dispatch({ type: 'VIEW_CENTER' })
   }, [dispatch])
   const hero = state.sprites.hero
   return <>
@@ -31,6 +32,14 @@ function Game() {
         <div>HP: {hero.hp}/{hero.hpMax}</div>
         <div>MP: {hero.mp}/{hero.mpMax}</div>
         <div>Power: {hero.power}</div>
+        <div>Items: {state.inventory.bags.default.contents.map((item, i) => (
+          <img
+            key={i}
+            src={images.sprites[item.image].src}
+            width={state.config.tileSizePx / 2}
+            height={state.config.tileSizePx / 2}
+            alt="" />
+        ))}</div>
       </div>
       <div className="col">
         {hero.hp <= 0 && <div>
@@ -40,7 +49,7 @@ function Game() {
           <div>
             <button
               className="btn btn-outline-secondary"
-              onClick={e => dispatch([{ type: 'RESET_GAME' }, {type: 'VIEW_CENTER'}])}>Restart</button>
+              onClick={e => dispatch([{ type: 'RESET_GAME' }, { type: 'VIEW_CENTER' }])}>Restart</button>
           </div>
         </div>}
       </div>

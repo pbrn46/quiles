@@ -2,6 +2,7 @@ import React, { useReducer, createContext, useContext } from 'react'
 
 import viewReducer from './reducers/view'
 import spritesReducer from './reducers/sprites'
+import inventoryReducer from './reducers/inventory'
 import { INITIAL_STATE } from './stateTemplates'
 
 
@@ -25,9 +26,9 @@ function reducer(state, action) {
     ...state,
     view: viewReducer(state.view, action, state),
     sprites: spritesReducer(state.sprites, action, state),
+    inventory: inventoryReducer(state.inventory, action, state),
   }
 }
-
 
 export function StoreProvider({ children }) {
   var [state, dispatch] = useReducer(reducer, INITIAL_STATE)

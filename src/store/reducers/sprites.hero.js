@@ -34,20 +34,20 @@ export default function heroReducer(hero, action, state) {
         hp = 0
       }
       return { ...hero, x, y, direction, hp }
-    case 'HERO_GET_ITEMS':
-      let heroAfterItems = { ...hero }
-      for (let item of action.items) {
-        for (let effect in item.effects) {
-          heroAfterItems = {
-            ...heroAfterItems,
-            [effect]: heroAfterItems[effect] + item.effects[effect]
-          }
-        }
-      }
-      return { ...hero, ...heroAfterItems }
-    case 'HERO_SPIT_TREE':
-      if (action.power < 50) return hero
-      return { ...hero, power: hero.power - 50 }
+    // case 'HERO_GET_ITEMS':
+    //   let heroAfterItems = { ...hero }
+    //   for (let item of action.items) {
+    //     for (let effect in item.effects) {
+    //       heroAfterItems = {
+    //         ...heroAfterItems,
+    //         [effect]: heroAfterItems[effect] + item.effects[effect]
+    //       }
+    //     }
+    //   }
+    //   return { ...hero, ...heroAfterItems }
+    // case 'HERO_SPIT_TREE':
+    //   if (action.power < 50) return hero
+    //   return { ...hero, power: hero.power - 50 }
     default:
       return hero
   }

@@ -22,7 +22,7 @@ const drawTiles = (state, ctx) => {
   for (let tile of state.sprites.tiles) {
     let xPx = posToPx(state, tile.x) - state.view.xPx
     let yPx = posToPx(state, tile.y) - state.view.yPx
-    let image = images.sprites[tile.image]
+    let image = images.sprites[tile.image].image
     ctx.drawImage(image, xPx, yPx, tileSize, tileSize)
   }
 }
@@ -46,7 +46,7 @@ const drawHero = (state, ctx) => {
   var dy = posToPx(state, hero.y) - state.view.yPx
   var sx = heroFrameIndex * tileSize
   var sy = hero.direction === "left" ? 0 : tileSize
-  var image = images.sprites[hero.image]
+  var image = images.sprites[hero.image].image
   ctx.drawImage(image,
     sx, sy, tileSize, tileSize,
     dx, dy, tileSize, tileSize)
@@ -70,7 +70,7 @@ const drawItems = (state, ctx) => {
     let xPx = posToPx(state, item.x) - state.view.xPx
     let yPx = posToPx(state, item.y) - state.view.yPx
     if (item.image) {
-      let image = images.sprites[item.image]
+      let image = images.sprites[item.image].image
       ctx.drawImage(image, xPx, yPx, tileSize, tileSize)
     } else {
       ctx.fillStyle = "green"
@@ -89,7 +89,7 @@ const drawFoes = (state, ctx) => {
     let xPx = posToPx(state, foe.x) - state.view.xPx
     let yPx = posToPx(state, foe.y) - state.view.yPx
     if (foe.image) {
-      let image = images.sprites[foe.image]
+      let image = images.sprites[foe.image].image
       ctx.drawImage(image, xPx, yPx, tileSize, tileSize)
     } else {
       ctx.fillStyle = "green"

@@ -1,8 +1,8 @@
 
-const loadImage = (url) => {
+const loadImage = (src) => {
   var image = new Image()
-  image.src= url
-  return image
+  image.src = src
+  return { image, src }
 }
 
 export const sprites = {
