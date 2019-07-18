@@ -33,18 +33,24 @@ function Game() {
       <img src="/assets/rock.png"
         id="rock" alt="" />
     </div>
-    <div>
-      <div>HP: {hero.hp}/{hero.hpMax}</div>
-      <div>MP: {hero.mp}/{hero.mpMax}</div>
-      <div>Power: {hero.power}</div>
-      {hero.hp <= 0 && <div>
-        <div>
-          YOU ARE DEAD.
-        </div>
-        <div>
-          <button onClick={e => dispatch({type: "RESET_GAME"})}>Restart</button>
-        </div>
-      </div>}
+    <div className="row">
+      <div className="col-6">
+        <div>HP: {hero.hp}/{hero.hpMax}</div>
+        <div>MP: {hero.mp}/{hero.mpMax}</div>
+        <div>Power: {hero.power}</div>
+      </div>
+      <div className="col">
+        {hero.hp <= 0 && <div>
+          <div>
+            YOU ARE DEAD.
+          </div>
+          <div>
+            <button
+              className="btn btn-outline-secondary"
+              onClick={e => dispatch({ type: "RESET_GAME" })}>Restart</button>
+          </div>
+        </div>}
+      </div>
     </div>
     <canvas width={state.config.canvas.width} height={state.config.canvas.height} ref={canvasRef}></canvas>
   </>
