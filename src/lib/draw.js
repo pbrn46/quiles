@@ -1,4 +1,5 @@
 import { posToPx } from './util'
+import * as images from './images'
 
 const drawBg = (state, ctx) => {
   ctx.fillStyle = "#ddd"
@@ -21,7 +22,7 @@ const drawTiles = (state, ctx) => {
   for (let tile of state.sprites.tiles) {
     let xPx = posToPx(state, tile.x) - state.view.xPx
     let yPx = posToPx(state, tile.y) - state.view.yPx
-    let image = document.getElementById(tile.image)
+    let image = images.sprites[tile.image]
     ctx.drawImage(image, xPx, yPx, tileSize, tileSize)
   }
 }
@@ -41,11 +42,11 @@ const drawHero = (state, ctx) => {
     }
   }
   const hero = state.sprites.hero
-  let dx = posToPx(state, hero.x) - state.view.xPx
-  let dy = posToPx(state, hero.y) - state.view.yPx
+  var dx = posToPx(state, hero.x) - state.view.xPx
+  var dy = posToPx(state, hero.y) - state.view.yPx
   var sx = heroFrameIndex * tileSize
   var sy = hero.direction === "left" ? 0 : tileSize
-  const image = document.getElementById(state.sprites.hero.image)
+  var image = images.sprites[hero.image]
   ctx.drawImage(image,
     sx, sy, tileSize, tileSize,
     dx, dy, tileSize, tileSize)
@@ -69,7 +70,7 @@ const drawItems = (state, ctx) => {
     let xPx = posToPx(state, item.x) - state.view.xPx
     let yPx = posToPx(state, item.y) - state.view.yPx
     if (item.image) {
-      const image = document.getElementById(item.image)
+      let image = images.sprites[item.image]
       ctx.drawImage(image, xPx, yPx, tileSize, tileSize)
     } else {
       ctx.fillStyle = "green"
@@ -88,7 +89,7 @@ const drawFoes = (state, ctx) => {
     let xPx = posToPx(state, foe.x) - state.view.xPx
     let yPx = posToPx(state, foe.y) - state.view.yPx
     if (foe.image) {
-      const image = document.getElementById(foe.image)
+      let image = images.sprites[foe.image]
       ctx.drawImage(image, xPx, yPx, tileSize, tileSize)
     } else {
       ctx.fillStyle = "green"

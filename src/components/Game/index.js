@@ -26,16 +26,6 @@ function Game() {
   const hero = state.sprites.hero
   return <>
     <KeyController />
-    <div style={{ display: "none" }}>
-      <img src="/assets/giraffe.png"
-        id="giraffe" alt="" />
-      <img src="/assets/lion.png"
-        id="lion" alt="" />
-      <img src="/assets/tree.png"
-        id="tree" alt="" />
-      <img src="/assets/rock.png"
-        id="rock" alt="" />
-    </div>
     <div className="row">
       <div className="col-6">
         <div>HP: {hero.hp}/{hero.hpMax}</div>
