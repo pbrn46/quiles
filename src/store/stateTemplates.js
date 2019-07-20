@@ -33,6 +33,12 @@ export const ITEM_TEMPLATE_FLOWER = {
   image: 'flower',
 }
 
+export const ITEM_TEMPLATE_GUN = {
+  itemType: "gun",
+  image: 'gun',
+  slot: 'weapon1',
+}
+
 export const TILE_TEMPLATE_ROCK = {
   name: 'rock',
   image: 'rock',
@@ -63,6 +69,7 @@ export const INITIAL_STATE = {
       { ...ITEM_TEMPLATE_TREE, x: 4, y: 12, },
       { ...ITEM_TEMPLATE_FLOWER, x: 8, y: 14, },
       { ...ITEM_TEMPLATE_FLOWER, x: 11, y: 11, },
+      { ...ITEM_TEMPLATE_GUN, x: 15, y: 9, },
     ],
     tiles: [
       { ...TILE_TEMPLATE_ROCK, x: 6, y: 9, },
@@ -84,6 +91,7 @@ export const INITIAL_STATE = {
       arms: null,
       shoulders: null,
       chest: null,
+      weapon1: null,
     },
     bags: {
       default: {

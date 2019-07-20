@@ -27,6 +27,20 @@ const drawTiles = (state, ctx) => {
   }
 }
 
+const drawGun = (state, ctx) => {
+  const hero = state.sprites.hero
+  let image = images.sprites['gunEquipped'].image
+  const tileSize = state.config.tileSizePx
+  var dx = posToPx(state, hero.x) - state.view.xPx
+  var dy = posToPx(state, hero.y) - state.view.yPx
+  var sx = 0
+  var sy = hero.direction === "left" ? 0 : tileSize
+  ctx.drawImage(image,
+    sx, sy, tileSize, tileSize,
+    dx, dy, tileSize, tileSize)
+
+}
+
 const heroFrameCount = 4
 const heroTicksPerFrame = 10
 var heroTicks = 0
@@ -50,6 +64,10 @@ const drawHero = (state, ctx) => {
   ctx.drawImage(image,
     sx, sy, tileSize, tileSize,
     dx, dy, tileSize, tileSize)
+  if (state.inventory.equipped.weapon1
+    && state.inventory.equipped.weapon1.itemType === 'gun') {
+    drawGun(state, ctx)
+  }
   if (hero.hp <= 0) {
     ctx.beginPath()
     ctx.lineWidth = 5

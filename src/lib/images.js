@@ -11,4 +11,6 @@ export const sprites = {
   tree: loadImage("/assets/tree.png"),
   rock: loadImage("/assets/rock.png"),
   flower: loadImage("/assets/flower.png"),
+  gun: loadImage("/assets/gun.png"),
+  gunEquipped: loadImage("/assets/gunEquipped.png"),
 }
