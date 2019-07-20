@@ -1,6 +1,6 @@
 export const HERO_TEMPLATE = {
-  x: 0,
-  y: 0,
+  x: 10,
+  y: 10,
   direction: 'left',
   hp: 100,
   hpMax: 100,
