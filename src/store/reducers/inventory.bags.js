@@ -10,9 +10,4 @@ export default function bagsReducer(bags, action, state) {
     default:
       return bags
   }
-  // return {
-  //   ...bags,
-  //   // bags: bagsReducer(bags.bags, action, state),
-  //   // items: itemsReducer(bags.items, action, state),
-  // }
 }
