@@ -45,3 +45,7 @@ export const getNeighbourSprites = (state, x, y, spriteType) => {
 export const getItemsAt = (state, xPos, yPos) => {
   return state.sprites.items.filter(item => item.x === xPos && item.y === yPos)
 }
+
+export const getItemsNotAt = (state, xPos, yPos) => {
+  return state.sprites.items.filter(item => !(item.x === xPos && item.y === yPos))
+}
