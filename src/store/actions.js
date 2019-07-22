@@ -30,11 +30,21 @@ export function moveHero(state, dispatch, direction) {
     hero.x = state.sprites.hero.x
     hero.y = state.sprites.hero.y
   }
+  const foes = state.sprites.foes.map(foe => {
+    if (Math.floor(Math.random() * 2) !== 0) return foe
+    let dx = hero.x - foe.x
+    let dy = hero.y - foe.y
+    let rad = Math.atan2(dx, dy)
+    let x = Math.round(Math.sin(rad) * 1) + foe.x
+    let y = Math.round(Math.cos(rad) * 1) + foe.y
+    return {...foe, x, y}
+  })
   if (getNeighbourSprites(state, hero.x, hero.y, 'foes').length > 0) {
     hero.hp = 0
   }
   dispatch([
     { type: 'UPDATE_HERO', hero },
+    { type: 'UPDATE_FOES', foes },
     { type: 'VIEW_CENTER' }])
 }
 

@@ -82,7 +82,7 @@ export const INITIAL_STATE = {
     ],
     foes: [
       { ...FOE_TEMPLATE, x: 12, y: 15, },
-    ]
+    ],
   },
   inventory: {
     equipped: {
@@ -97,7 +97,7 @@ export const INITIAL_STATE = {
       default: {
         maxItems: 50,
         contents: [],
-      }
+      },
     },
   },
 }
