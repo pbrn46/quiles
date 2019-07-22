@@ -61,6 +61,7 @@ export function spitItem(state, dispatch) {
   const hero = state.sprites.hero
   if (hero.hp <= 0) return
   var remainingContents = [...state.inventory.bags.default.contents]
+  if (remainingContents.length === 0) return
   var item = remainingContents.pop()
   item.x = hero.x
   item.y = hero.y
