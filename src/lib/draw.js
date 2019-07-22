@@ -38,7 +38,6 @@ const drawGun = (state, ctx) => {
   ctx.drawImage(image,
     sx, sy, tileSize, tileSize,
     dx, dy, tileSize, tileSize)
-
 }
 
 const heroFrameCount = 4
@@ -56,6 +55,7 @@ const drawHero = (state, ctx) => {
     }
   }
   const hero = state.sprites.hero
+  if (hero.hp === 0) heroFrameIndex = 0
   var dx = posToPx(state, hero.x) - state.view.xPx
   var dy = posToPx(state, hero.y) - state.view.yPx
   var sx = heroFrameIndex * tileSize
