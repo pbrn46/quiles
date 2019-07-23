@@ -74,7 +74,6 @@ const drawHero = (state, ctx) => {
     ctx.strokeStyle = "#f00"
     ctx.moveTo(dx, dy)
     ctx.lineTo(dx + tileSize, dy + tileSize)
-
     ctx.moveTo(dx + tileSize, dy)
     ctx.lineTo(dx, dy + tileSize)
     ctx.stroke()

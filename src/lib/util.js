@@ -42,10 +42,26 @@ export const getNeighbourSprites = (state, x, y, spriteType) => {
   ))
 }
 
+export const getSpritesAt = (state, x, y, spriteType) => {
+  return state.sprites[spriteType].filter(sprite => (
+    sprite.x === x && sprite.y === y
+  ))
+}
+
 export const getItemsAt = (state, xPos, yPos) => {
-  return state.sprites.items.filter(item => item.x === xPos && item.y === yPos)
+  return getSpritesAt(state, xPos, yPos, 'items')
 }
 
 export const getItemsNotAt = (state, xPos, yPos) => {
   return state.sprites.items.filter(item => !(item.x === xPos && item.y === yPos))
+}
+
+export const heroShouldDie = (state) => {
+  let hero = state.sprites.hero
+  if (getNeighbourSprites(state, hero.x, hero.y, 'foes').length > 0
+    || getSpritesAt(state, hero.x, hero.y, 'foes').length > 0
+  ) {
+    return true
+  }
+  return false
 }

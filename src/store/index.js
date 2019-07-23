@@ -16,6 +16,12 @@ function reducer(state, action) {
     }
     return newState
   }
+  if (typeof action === "function") {
+    return reducer(state, action(state))
+  }
+  if (action === undefined) {
+    return state
+  }
   switch (action.type) {
     case 'RESET_GAME':
       let resetState = {...INITIAL_STATE}

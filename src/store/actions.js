@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useStore } from './'
 import {
-  getItemsAt, getItemsNotAt, isPassible, getNeighbourSprites
+  getItemsAt, getItemsNotAt, isPassible, heroShouldDie
 } from '../lib/util'
 import * as thisFile from './actions'
 
@@ -37,15 +37,17 @@ export function moveHero(state, dispatch, direction) {
     let rad = Math.atan2(dx, dy)
     let x = Math.round(Math.sin(rad) * 1) + foe.x
     let y = Math.round(Math.cos(rad) * 1) + foe.y
-    return {...foe, x, y}
+    return { ...foe, x, y }
   })
-  if (getNeighbourSprites(state, hero.x, hero.y, 'foes').length > 0) {
-    hero.hp = 0
-  }
   dispatch([
     { type: 'UPDATE_HERO', hero },
     { type: 'UPDATE_FOES', foes },
-    { type: 'VIEW_CENTER' }])
+    { type: 'VIEW_CENTER' },
+    (state) => {
+      if (heroShouldDie(state)) {
+        return { type: 'UPDATE_HERO', hero: { ...hero, hp: 0 } }
+      }
+    }])
 }
 
 export function getItems(state, dispatch) {
