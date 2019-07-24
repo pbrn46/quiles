@@ -4,6 +4,7 @@ import {
   getItemsAt, getItemsNotAt, isPassible, heroShouldDie, heroIsDead
 } from '../lib/util'
 import * as thisFile from './actions'
+import { generateMap } from '../lib/mapGenerator';
 
 export function moveHero(state, dispatch, direction) {
   const hero = { ...state.sprites.hero }
@@ -97,6 +98,10 @@ export function spitItem(state, dispatch) {
 export function resetGame(state, dispatch) {
   dispatch([
     { type: 'RESET_GAME' },
+    (state) => {
+      let map = generateMap(state.map.width, state.map.height)
+      return ({ type: 'UPDATE_TILES', tiles: map })
+    },
     { type: 'VIEW_CENTER' },
   ])
 }

@@ -1,10 +1,12 @@
 import React from 'react'
 import { useStore } from '../../store'
 import * as images from '../../lib/images'
+import useActions from '../../store/actions'
 
 
 function Stats() {
   var [state, dispatch] = useStore()
+  var [actions] = useActions()
   const hero = state.sprites.hero
   return (
     <div className="Stats">
@@ -34,7 +36,7 @@ function Stats() {
               <div>
                 <button
                   className="btn btn-outline-secondary"
-                  onClick={e => dispatch([{ type: 'RESET_GAME' }, { type: 'VIEW_CENTER' }])}>Restart</button>
+                  onClick={e => {actions.resetGame()}}>Restart</button>
               </div>
             </div>
           </div>}

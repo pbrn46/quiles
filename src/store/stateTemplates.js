@@ -47,6 +47,7 @@ export const TILE_TEMPLATE_ROCK = {
 
 export const TILE_TEMPLATE_WALL1 = {
   name: 'wall',
+  image: 'rock',
   color: '#555',
   passible: false,
 }
@@ -78,13 +79,13 @@ export const INITIAL_STATE = {
       { ...ITEM_TEMPLATE_GUN, x: 15, y: 9, },
     ],
     tiles: [
-      { ...TILE_TEMPLATE_ROCK, x: 6, y: 9, },
-      { ...TILE_TEMPLATE_ROCK, x: 8, y: 9, },
-      { ...TILE_TEMPLATE_ROCK, x: 6, y: 10, },
-      { ...TILE_TEMPLATE_ROCK, x: 8, y: 10, },
-      { ...TILE_TEMPLATE_ROCK, x: 6, y: 11, },
-      { ...TILE_TEMPLATE_ROCK, x: 7, y: 11, },
-      { ...TILE_TEMPLATE_ROCK, x: 8, y: 11, },
+      // { ...TILE_TEMPLATE_ROCK, x: 6, y: 9, },
+      // { ...TILE_TEMPLATE_ROCK, x: 8, y: 9, },
+      // { ...TILE_TEMPLATE_ROCK, x: 6, y: 10, },
+      // { ...TILE_TEMPLATE_ROCK, x: 8, y: 10, },
+      // { ...TILE_TEMPLATE_ROCK, x: 6, y: 11, },
+      // { ...TILE_TEMPLATE_ROCK, x: 7, y: 11, },
+      // { ...TILE_TEMPLATE_ROCK, x: 8, y: 11, },
     ],
     foes: [
       { ...FOE_TEMPLATE, x: 12, y: 15, },
