@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useStore } from '../../store'
 import KeyController from '../KeyController'
 import ResizeWatcher from '../ResizeWatcher'
+import GameInitializer from '../GameInitializer'
 import Stats from '../Stats'
 import { draw } from '../../lib/draw'
 
@@ -30,6 +31,7 @@ function Game() {
     <KeyController />
     <canvas width={state.view.widthPx} height={state.view.heightPx} ref={canvasRef}></canvas>
     <Stats/>
+    <GameInitializer />
   </div>
 }
 

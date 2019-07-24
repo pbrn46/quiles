@@ -45,6 +45,12 @@ export const TILE_TEMPLATE_ROCK = {
   passible: false,
 }
 
+export const TILE_TEMPLATE_WALL1 = {
+  name: 'wall',
+  color: '#555',
+  passible: false,
+}
+
 export const INITIAL_STATE = {
   map: {
     width: 30,
