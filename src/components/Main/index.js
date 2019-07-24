@@ -1,10 +1,2 @@
-import React from 'react'
-import Game from '../Game';
-
-function Main() {
-  return <div className="container Main">
-    <Game />
-  </div>
-}
-
+import Main from './Main'
 export default Main

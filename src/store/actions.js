@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import { useStore } from './'
 import {
-  getItemsAt, getItemsNotAt, isPassible, heroShouldDie
+  getItemsAt, getItemsNotAt, isPassible, heroShouldDie, heroIsDead
 } from '../lib/util'
 import * as thisFile from './actions'
 
 export function moveHero(state, dispatch, direction) {
   const hero = { ...state.sprites.hero }
-  if (hero.hp <= 0) return
+  if (heroIsDead(state)) return
   switch (direction) {
     case 'up':
       hero.y--
@@ -52,7 +52,7 @@ export function moveHero(state, dispatch, direction) {
 
 export function getItems(state, dispatch) {
   const hero = state.sprites.hero
-  if (hero.hp <= 0) return
+  if (heroIsDead(state)) return
   var remainingItems = getItemsNotAt(state, hero.x, hero.y)
   var items = getItemsAt(state, hero.x, hero.y)
   var bagItems = items.filter(item => !item.slot)
@@ -71,7 +71,7 @@ export function getItems(state, dispatch) {
 
 export function spitItem(state, dispatch) {
   const hero = state.sprites.hero
-  if (hero.hp <= 0) return
+  if (heroIsDead(state)) return
   var remainingContents = [...state.inventory.bags.default.contents]
   if (remainingContents.length === 0) return
   var item = remainingContents.pop()
@@ -92,6 +92,13 @@ export function spitItem(state, dispatch) {
     type: 'UPDATE_ITEMS',
     items: newItems,
   }])
+}
+
+export function resetGame(state, dispatch) {
+  dispatch([
+    { type: 'RESET_GAME' },
+    { type: 'VIEW_CENTER' },
+  ])
 }
 
 export default function useActions() {

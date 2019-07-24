@@ -65,3 +65,7 @@ export const heroShouldDie = (state) => {
   }
   return false
 }
+
+export const heroIsDead = (state) => {
+  return state.sprites.hero.hp === 0
+}
