@@ -12,7 +12,7 @@ function getMapArray(width, height) {
   return map
 }
 export function generateMap(mapWidth, mapHeight) {
-  const minRoomSize = 3
+  const minRoomSize = 4
   const maxRoomSize = 10
   const maxRooms = 10
   const maxTries = 1000
@@ -34,7 +34,6 @@ export function generateMap(mapWidth, mapHeight) {
       for (let tryY = y; tryY < y + height; tryY++) {
         if (map[tryX][tryY] || x + width >= mapWidth || y + height >= mapHeight) {
           valid = false
-          console.log(map[x][y])
           break
         }
       }

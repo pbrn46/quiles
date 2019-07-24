@@ -24,13 +24,17 @@ export default function GameInitializer() {
   // return null
   return (
     <div>
-      {tempMapComponents.map((row, i) => (
-        <tr key={i}>
-          {row.map((col, j) => (
-            <td key={j}>{col || "Null"}</td>
+      <table className="text-center">
+        <tbody>
+          {tempMapComponents.map((row, i) => (
+            <tr key={i}>
+              {row.map((col, j) => (
+                <td key={j}>{col || "--"}</td>
+              ))}
+            </tr>
           ))}
-        </tr>
-      ))}
+        </tbody>
+      </table>
     </div>
   )
 }
