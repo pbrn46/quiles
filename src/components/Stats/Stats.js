@@ -5,7 +5,7 @@ import useActions from '../../store/actions'
 
 
 function Stats() {
-  var [state, dispatch] = useStore()
+  var [state] = useStore()
   var [actions] = useActions()
   const hero = state.sprites.hero
   return (
@@ -36,7 +36,7 @@ function Stats() {
               <div>
                 <button
                   className="btn btn-outline-secondary"
-                  onClick={e => {actions.resetGame()}}>Restart</button>
+                  onClick={e => { actions.resetGame() }}>Restart</button>
               </div>
             </div>
           </div>}
