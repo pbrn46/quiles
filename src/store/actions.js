@@ -37,6 +37,9 @@ export function moveHero(state, dispatch, direction) {
     let rad = Math.atan2(dx, dy)
     let x = Math.round(Math.sin(rad) * 1) + foe.x
     let y = Math.round(Math.cos(rad) * 1) + foe.y
+    if (!isPassible(state, x, y)) {
+      return foe
+    }
     return { ...foe, x, y }
   })
   dispatch([
