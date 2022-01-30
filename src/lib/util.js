@@ -15,6 +15,33 @@ export const isPassible = (state, x, y) => {
   return true
 }
 
+/**
+ * Similar to Array.prototype.map(), but uses (x, y) rather
+ * than (value, index) for parameters.
+ * callback: (x, y)
+ * returns: Object with keys "x_y"
+ *  */
+export const mapRowCol = (width, height, callback) => {
+  var map = {}
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      map[`${x}_${y}`] = callback(x, y)
+    }
+  }
+  return map
+}
+
+export const getPassibleMap = (state) => {
+  return mapRowCol(state.map.width, state.map.height, (x, y) => {
+    return isPassible(state, x, y)
+  })
+}
+
+
+export const getNearestMove = (state, fromX, fromY, toX, toY) => {
+
+}
+
 export const inPositions = (x, y, positions) => {
   for (let position of positions) {
     if (x === position[0] && y === position[1]) return true
