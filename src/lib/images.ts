@@ -1,5 +1,5 @@
 
-const loadImage = (src) => {
+const loadImage = (src: string) => {
   var image = new Image()
   image.src = src
   return { image, src }
@@ -14,3 +14,5 @@ export const sprites = {
   gun: loadImage("/assets/gun.png"),
   gunEquipped: loadImage("/assets/gunEquipped.png"),
 }
+
+export type SpriteImageKey = keyof typeof sprites

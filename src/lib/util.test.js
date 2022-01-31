@@ -1,5 +1,5 @@
-import * as util from './util'
-import { INITIAL_STATE } from '../store/stateTemplates';
+import * as util from "./util"
+// import { INITIAL_STATE } from "../redux/stateTemplates";
 
 describe('loopRowCol', () => {
   it('loops through rows and cols', () => {

@@ -1,16 +1,16 @@
-import React from 'react'
-import './App.css'
+import React from "react"
+import { Provider } from "react-redux"
+import { store } from "./redux/store"
+import { Main } from "./components/Main"
 
-import Main from './components/Main'
-import { StoreProvider } from './store'
+import "./App.css"
 
 function App() {
-  return <StoreProvider>
+  return <Provider store={store}>
     <div className="App">
       <Main />
     </div>
-  </StoreProvider>
-
+  </Provider>
 }
 
 export default App

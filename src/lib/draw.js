@@ -1,11 +1,14 @@
 import { posToPx } from './util'
 import * as images from './images'
+import { spritesSelectors } from '../redux/reducers/sprites'
 
 const drawBg = (state, ctx) => {
   ctx.fillStyle = "#ddd"
   ctx.fillRect(0, 0, state.view.widthPx, state.view.heightPx)
 }
 const drawTiles = (state, ctx) => {
+  const groupedSprites = spritesSelectors.selectGroupedSprites(state)
+
   const tileSize = state.config.tileSizePx
   for (let y = 0; y < state.map.height; y++) {
     for (let x = 0; x < state.map.width; x++) {
@@ -19,16 +22,17 @@ const drawTiles = (state, ctx) => {
     }
   }
 
-  for (let tile of state.sprites.tiles) {
-    let xPx = posToPx(state, tile.x) - state.view.xPx
-    let yPx = posToPx(state, tile.y) - state.view.yPx
-    let image = images.sprites[tile.image].image
+  const terrains = groupedSprites["terrain"]
+  for (let terrain of terrains) {
+    let xPx = posToPx(state, terrain.x) - state.view.xPx
+    let yPx = posToPx(state, terrain.y) - state.view.yPx
+    let image = images.sprites[terrain.image].image
     ctx.drawImage(image, xPx, yPx, tileSize, tileSize)
   }
 }
 
 const drawGun = (state, ctx) => {
-  const hero = state.sprites.hero
+  const hero = spritesSelectors.selectHero(state)
   let image = images.sprites['gunEquipped'].image
   const tileSize = state.config.tileSizePx
   var dx = posToPx(state, hero.x) - state.view.xPx
@@ -54,7 +58,7 @@ const drawHero = (state, ctx) => {
       heroFrameIndex = 0
     }
   }
-  const hero = state.sprites.hero
+  const hero = spritesSelectors.selectHero(state)
   if (hero.hp === 0) heroFrameIndex = 0
   var dx = posToPx(state, hero.x) - state.view.xPx
   var dy = posToPx(state, hero.y) - state.view.yPx
@@ -81,7 +85,8 @@ const drawHero = (state, ctx) => {
 }
 
 const drawItems = (state, ctx) => {
-  const items = state.sprites.items
+  const groupedSprites = spritesSelectors.selectGroupedSprites(state)
+  const items = groupedSprites["item"]
   const tileSize = state.config.tileSizePx
   for (let item of items) {
     let xPx = posToPx(state, item.x) - state.view.xPx
@@ -100,7 +105,8 @@ const drawItems = (state, ctx) => {
 }
 
 const drawFoes = (state, ctx) => {
-  const foes = state.sprites.foes
+  const groupedSprites = spritesSelectors.selectGroupedSprites(state)
+  const foes = groupedSprites["foe"]
   const tileSize = state.config.tileSizePx
   for (let foe of foes) {
     let xPx = posToPx(state, foe.x) - state.view.xPx

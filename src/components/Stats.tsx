@@ -1,11 +1,14 @@
 import React from 'react'
-import { useStore } from '../../store'
-import * as images from '../../lib/images'
+import * as images from '../lib/images'
+import { gameActions } from '../redux/actions'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { spritesSelectors } from '../redux/reducers/sprites'
 
-
-function Stats() {
-  var [state, dispatch] = useStore()
-  const hero = state.sprites.hero
+export function Stats() {
+  const dispatch = useAppDispatch()
+  const hero = useAppSelector(spritesSelectors.selectHero)
+  const bagContents = useAppSelector(state => state.inventory.bags.default.contents)
+  const tileSizePx = useAppSelector(state => state.config.tileSizePx)
   return (
     <div className="Stats">
       <div className="row no-gutters">
@@ -14,12 +17,12 @@ function Stats() {
             <div>HP: {hero.hp}/{hero.hpMax}</div>
             <div>MP: {hero.mp}/{hero.mpMax}</div>
             <div>Power: {hero.power}</div>
-            <div>Items: {state.inventory.bags.default.contents.map((item, i) => (
+            <div>Items: {bagContents.map((item, i) => (
               <img
                 key={i}
                 src={images.sprites[item.image].src}
-                width={state.config.tileSizePx / 2}
-                height={state.config.tileSizePx / 2}
+                width={tileSizePx / 2}
+                height={tileSizePx / 2}
                 alt="" />
             ))}</div>
           </div>
@@ -34,7 +37,7 @@ function Stats() {
               <div>
                 <button
                   className="btn btn-outline-secondary"
-                  onClick={e => dispatch([{ type: 'RESET_GAME' }, { type: 'VIEW_CENTER' }])}>Restart</button>
+                  onClick={e => dispatch(gameActions.resetGame())}>Restart</button>
               </div>
             </div>
           </div>}
@@ -43,5 +46,3 @@ function Stats() {
     </div>
   )
 }
-
-export default Stats
