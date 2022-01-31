@@ -10,7 +10,7 @@ export const FOE_TEMPLATE: Sprite = {
   mpMax: 50,
   power: 100,
   image: "lion",
-  direction: Direction.up,
+  direction: Direction.Up,
 }
 
 export const ITEM_TEMPLATE_TREE: Sprite = {

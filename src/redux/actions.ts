@@ -16,38 +16,37 @@ import { appThunk } from "./store"
 // import * as thisFile from './actions'
 const moveHero = (direction: Direction) => appThunk((dispatch, getState) => {
   const state = getState()
-  const oldHero = spritesSelectors.selectHero(state)
-  const newHero = produce(oldHero, draft => {
-    if (heroIsDead(state)) return
+  if (heroIsDead(state)) return
+  const newHero = produce(spritesSelectors.selectHero(getState()), draft => {
+    const { x: oldX, y: oldY } = draft
     switch (direction) {
-      case Direction.up:
+      case Direction.Up:
         draft.y--
         break
-      case Direction.down:
+      case Direction.Down:
         draft.y++
         break
-      case Direction.left:
+      case Direction.Left:
         draft.x--
-        draft.direction = Direction.left
+        draft.direction = Direction.Left
         break
-      case Direction.right:
+      case Direction.Right:
         draft.x++
-        draft.direction = Direction.right
+        draft.direction = Direction.Right
         break
       default:
         break
     }
     if (!isPassible(state, draft.x, draft.y)) {
-      draft.x = oldHero.x
-      draft.y = oldHero.y
-    }
-    if (heroShouldDie(state)) {
-      draft.hp = 0
+      draft.x = oldX
+      draft.y = oldY
     }
   })
+  dispatch(spritesActions.setHero(newHero))
+  dispatch(viewActions.viewCenter())
 
   // Update foes
-  const foes = produce(spritesSelectors.selectGroupedSprites(state)["foe"], draft => {
+  const foes = produce(spritesSelectors.selectGroupedSprites(getState())["foe"], draft => {
     draft.forEach(foe => {
       if (Math.floor(Math.random() * 2) !== 0) return foe
       let dx = newHero.x - foe.x
@@ -62,9 +61,12 @@ const moveHero = (direction: Direction) => appThunk((dispatch, getState) => {
       foe.y = y
     })
   })
-  dispatch(spritesActions.setHero(newHero))
   dispatch(spritesActions.setFoes(foes))
-  dispatch(viewActions.viewCenter())
+  if (heroShouldDie(getState())) {
+    dispatch(spritesActions.setHero(
+      produce(spritesSelectors.selectHero(getState()), draft => { draft.hp = 0 })
+    ))
+  }
 })
 
 // export function moveHero(state, dispatch, direction) {
@@ -123,7 +125,7 @@ const getItems = () => appThunk((dispatch, getState) => {
   const items = getItemsAt(state, hero.x, hero.y)
   const bagItems = items.filter(item => !item.slot)
   const equipItems = items.filter(item => item.slot)
-  dispatch(bagsActions.addBagItem(bagItems))
+  dispatch(bagsActions.addBagItems(bagItems))
   dispatch(equippedActions.equipItems(equipItems))
   dispatch(spritesActions.setSprites([
     ...state.sprites.filter(sprite => sprite.type !== "item"),
@@ -189,6 +191,7 @@ const resetGame = () => appThunk((dispatch, getState) => {
   dispatch(equippedActions.reset())
   dispatch(bagsActions.reset())
   dispatch(spritesActions.reset())
+  dispatch(viewActions.viewCenter())
 })
 // export function resetGame(state, dispatch) {
 //   dispatch([

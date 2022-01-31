@@ -1,10 +1,10 @@
 import { SpriteImageKey } from "./images"
 
 export enum Direction {
-  up,
-  down,
-  left,
-  right,
+  Up,
+  Down,
+  Left,
+  Right,
 }
 
 export type SpriteBase = {

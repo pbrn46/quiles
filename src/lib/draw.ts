@@ -1,12 +1,14 @@
 import { posToPx } from './util'
 import * as images from './images'
 import { spritesSelectors } from '../redux/reducers/sprites'
+import { RootState } from '../redux/store'
+import { Direction } from './sprite'
 
-const drawBg = (state, ctx) => {
+const drawBg = (state: RootState, ctx: CanvasRenderingContext2D) => {
   ctx.fillStyle = "#ddd"
   ctx.fillRect(0, 0, state.view.widthPx, state.view.heightPx)
 }
-const drawTiles = (state, ctx) => {
+const drawTiles = (state: RootState, ctx: CanvasRenderingContext2D) => {
   const groupedSprites = spritesSelectors.selectGroupedSprites(state)
 
   const tileSize = state.config.tileSizePx
@@ -31,14 +33,14 @@ const drawTiles = (state, ctx) => {
   }
 }
 
-const drawGun = (state, ctx) => {
+const drawGun = (state: RootState, ctx: CanvasRenderingContext2D) => {
   const hero = spritesSelectors.selectHero(state)
   let image = images.sprites['gunEquipped'].image
   const tileSize = state.config.tileSizePx
-  var dx = posToPx(state, hero.x) - state.view.xPx
-  var dy = posToPx(state, hero.y) - state.view.yPx
-  var sx = 0
-  var sy = hero.direction === "left" ? 0 : tileSize
+  const dx = posToPx(state, hero.x) - state.view.xPx
+  const dy = posToPx(state, hero.y) - state.view.yPx
+  const sx = 0
+  const sy = hero.direction === Direction.Left ? 0 : tileSize
   ctx.drawImage(image,
     sx, sy, tileSize, tileSize,
     dx, dy, tileSize, tileSize)
@@ -46,9 +48,9 @@ const drawGun = (state, ctx) => {
 
 const heroFrameCount = 4
 const heroTicksPerFrame = 10
-var heroTicks = 0
-var heroFrameIndex = 0
-const drawHero = (state, ctx) => {
+let heroTicks = 0
+let heroFrameIndex = 0
+const drawHero = (state: RootState, ctx: CanvasRenderingContext2D) => {
   heroTicks++
   const tileSize = state.config.tileSizePx
   if (heroTicks >= heroTicksPerFrame) {
@@ -60,11 +62,11 @@ const drawHero = (state, ctx) => {
   }
   const hero = spritesSelectors.selectHero(state)
   if (hero.hp === 0) heroFrameIndex = 0
-  var dx = posToPx(state, hero.x) - state.view.xPx
-  var dy = posToPx(state, hero.y) - state.view.yPx
-  var sx = heroFrameIndex * tileSize
-  var sy = hero.direction === "left" ? 0 : tileSize
-  var image = images.sprites[hero.image].image
+  const dx = posToPx(state, hero.x) - state.view.xPx
+  const dy = posToPx(state, hero.y) - state.view.yPx
+  const sx = heroFrameIndex * tileSize
+  const sy = hero.direction === Direction.Left ? 0 : tileSize
+  const image = images.sprites[hero.image].image
   ctx.drawImage(image,
     sx, sy, tileSize, tileSize,
     dx, dy, tileSize, tileSize)
@@ -84,7 +86,7 @@ const drawHero = (state, ctx) => {
   }
 }
 
-const drawItems = (state, ctx) => {
+const drawItems = (state: RootState, ctx: CanvasRenderingContext2D) => {
   const groupedSprites = spritesSelectors.selectGroupedSprites(state)
   const items = groupedSprites["item"]
   const tileSize = state.config.tileSizePx
@@ -104,7 +106,7 @@ const drawItems = (state, ctx) => {
   }
 }
 
-const drawFoes = (state, ctx) => {
+const drawFoes = (state: RootState, ctx: CanvasRenderingContext2D) => {
   const groupedSprites = spritesSelectors.selectGroupedSprites(state)
   const foes = groupedSprites["foe"]
   const tileSize = state.config.tileSizePx
@@ -124,7 +126,7 @@ const drawFoes = (state, ctx) => {
   }
 }
 
-export const draw = (state, ctx) => {
+export const draw = (state: RootState, ctx: CanvasRenderingContext2D) => {
   if (!ctx) return
   ctx.clearRect(0, 0, state.view.widthPx, state.view.heightPx)
   drawBg(state, ctx)

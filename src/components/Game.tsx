@@ -13,8 +13,8 @@ export function Game() {
   const dispatch = useAppDispatch()
   const state = useAppSelector(state => state)
 
-  var [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null)
-  var canvasRef = useRef<HTMLCanvasElement>(null)
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     if (!canvasRef.current) return
     setCtx(canvasRef.current.getContext('2d'))
@@ -23,6 +23,7 @@ export function Game() {
     let frame: number
     const tick = () => {
       frame = requestAnimationFrame(tick)
+      if (!ctx) return
       draw(state, ctx)
     }
     tick()

@@ -12,7 +12,7 @@ const initialState: SpritesState = [
     type: "hero",
     x: 10,
     y: 10,
-    direction: Direction.left,
+    direction: Direction.Left,
     hp: 100,
     hpMax: 100,
     mp: 50,

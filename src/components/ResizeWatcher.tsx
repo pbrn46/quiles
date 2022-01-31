@@ -5,7 +5,7 @@ import { viewActions } from '../redux/reducers/view'
 
 export function ResizeWatcher() {
   const dispatch = useAppDispatch()
-  var divRef = useRef<HTMLDivElement | null>(null)
+  const divRef = useRef<HTMLDivElement | null>(null)
   const handleWindowResize = useCallback(() => {
     if (!divRef.current) return
     dispatch(viewActions.setViewWH({

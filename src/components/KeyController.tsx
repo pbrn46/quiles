@@ -10,20 +10,20 @@ function KeyController() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      var preventDefault = true
+      let preventDefault = true
       console.log(e.key)
       switch (e.key) {
         case 'ArrowUp':
-          dispatch(gameActions.moveHero(Direction.up))
+          dispatch(gameActions.moveHero(Direction.Up))
           break
         case 'ArrowDown':
-          dispatch(gameActions.moveHero(Direction.down))
+          dispatch(gameActions.moveHero(Direction.Down))
           break
         case 'ArrowLeft':
-          dispatch(gameActions.moveHero(Direction.left))
+          dispatch(gameActions.moveHero(Direction.Left))
           break
         case 'ArrowRight':
-          dispatch(gameActions.moveHero(Direction.right))
+          dispatch(gameActions.moveHero(Direction.Right))
           break
         case 'g':
           dispatch(gameActions.getItems())

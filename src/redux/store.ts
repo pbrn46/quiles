@@ -48,7 +48,7 @@
 //   var [state, dispatch] = useContext(context)
 //   return [state, dispatch]
 // }
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { rootReducer } from './rootReducer'
 
 export const store = configureStore({
@@ -60,7 +60,7 @@ export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
-export type AppThunk<ReturnType> = ThunkAction<ReturnType, RootState, unknown, Action>
+export type AppThunk<ReturnType> = ThunkAction<ReturnType, RootState, unknown, AnyAction>
 
-/** Creates an app thunk while inferring the return type properly */
+/** Wrapper function. Creates an app thunk while inferring the return type properly */
 export const appThunk = <T>(thunk: AppThunk<T>) => thunk

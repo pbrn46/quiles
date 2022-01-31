@@ -1,6 +1,6 @@
 
 const loadImage = (src: string) => {
-  var image = new Image()
+  const image = new Image()
   image.src = src
   return { image, src }
 }
