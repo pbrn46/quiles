@@ -11,7 +11,7 @@ type BagsState = {
 
 const initialState: BagsState = {
   default: {
-    maxItems: 50,
+    maxItems: 16,
     contents: []
   }
 }

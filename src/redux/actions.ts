@@ -193,24 +193,6 @@ const resetGame = () => appThunk((dispatch, getState) => {
   dispatch(spritesActions.reset())
   dispatch(viewActions.viewCenter())
 })
-// export function resetGame(state, dispatch) {
-//   dispatch([
-//     { type: 'RESET_GAME' },
-//     { type: 'VIEW_CENTER' },
-//   ])
-// }
-
-// export default function useActions() {
-//   var [state, dispatch] = useStore()
-//   var actions = useMemo(() => (
-//     Object.keys(thisFile).reduce(
-//       (acc, key) => {
-//         acc[key] = (...args) => thisFile[key](state, dispatch, ...args)
-//         return acc
-//       }, {})
-//   ), [state, dispatch])
-//   return [actions]
-// }
 
 
 export const gameActions = {

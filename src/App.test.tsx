@@ -4,6 +4,6 @@ import App from "./App"
 
 it("renders without crashing", () => {
   render(<App />);
-  const linkElement = screen.getByText(/items/i);
+  const linkElement = screen.getByText(/power/i);
   expect(linkElement).toBeInTheDocument();
 });

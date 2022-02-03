@@ -1,3 +1,4 @@
+import { EquipSlot } from "./equipment"
 import { SpriteImageKey } from "./images"
 
 export enum Direction {
@@ -64,14 +65,3 @@ export type TypedSprite<T extends SpriteType> = Sprite & { type: T }
 export type GroupedSprites = {
   [T in SpriteType]: TypedSprite<T>[]
 }
-
-export const EQUIP_SLOTS = [
-  "head",
-  "legs",
-  "arms",
-  "shoulders",
-  "chest",
-  "weapon1",
-] as const
-
-export type EquipSlot = typeof EQUIP_SLOTS[number]

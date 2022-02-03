@@ -1,18 +1,6 @@
-
-// export default function equippedReducer(equipped, action, state) {
-//   switch (action.type) {
-//     case 'UPDATE_EQUIPPED_ITEM':
-//       let newEquipped = { ...equipped }
-//       newEquipped[action.item.slot] = action.item
-//       return newEquipped
-//     default:
-//       return equipped
-//   }
-// }
-
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { EquipSlot, SpriteItem, TypedSprite } from "../../lib/sprite"
+import { EquipSlot } from "../../lib/equipment"
+import { SpriteItem, TypedSprite } from "../../lib/sprite"
 
 
 type EquippedState = Record<EquipSlot, SpriteItem | null>
