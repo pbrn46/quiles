@@ -1,9 +1,3 @@
-// import { useMemo } from 'react'
-// import { useStore } from './store'
-// import {
-//   getItemsAt, getItemsNotAt, isPassible, heroShouldDie, heroIsDead
-// } from '../lib/util'
-
 import produce from "immer"
 import { Direction } from "../lib/sprite"
 import { getItemsAt, getItemsNotAt, heroShouldDie, isPassible, heroIsDead } from "../lib/util"
@@ -13,7 +7,6 @@ import { spritesActions, spritesSelectors } from "./reducers/sprites"
 import { viewActions } from "./reducers/view"
 import { appThunk } from "./store"
 
-// import * as thisFile from './actions'
 const moveHero = (direction: Direction) => appThunk((dispatch, getState) => {
   const state = getState()
   if (heroIsDead(state)) return
@@ -131,61 +124,27 @@ const getItems = () => appThunk((dispatch, getState) => {
     ...state.sprites.filter(sprite => sprite.type !== "item"),
     ...remainingItems,
   ]))
-  // dispatch([{
-  //   type: 'UPDATE_ITEMS',
-  //   items: remainingItems,
-  // }, {
-  //   type: 'ADD_BAG_ITEMS',
-  //   items: bagItems,
-  // }, ...equipItems.map(item => ({
-  //   type: 'UPDATE_EQUIPPED_ITEM',
-  //   item: item,
-  // }))])
 })
 
-// export function getItems(state, dispatch) {
-//   const hero = state.sprites.hero
-//   if (heroIsDead(state)) return
-//   var remainingItems = getItemsNotAt(state, hero.x, hero.y)
-//   var items = getItemsAt(state, hero.x, hero.y)
-//   var bagItems = items.filter(item => !item.slot)
-//   var equipItems = items.filter(item => item.slot)
-//   dispatch([{
-//     type: 'UPDATE_ITEMS',
-//     items: remainingItems,
-//   }, {
-//     type: 'ADD_BAG_ITEMS',
-//     items: bagItems,
-//   }, ...equipItems.map(item => ({
-//     type: 'UPDATE_EQUIPPED_ITEM',
-//     item: item,
-//   }))])
-// }
-
-// export function spitItem(state, dispatch) {
-//   const hero = state.sprites.hero
-//   if (heroIsDead(state)) return
-//   var remainingContents = [...state.inventory.bags.default.contents]
-//   if (remainingContents.length === 0) return
-//   var item = remainingContents.pop()
-//   item.x = hero.x
-//   item.y = hero.y
-//   var newBags = {
-//     ...state.inventory.bags,
-//     default: {
-//       ...state.inventory.bags.default,
-//       contents: remainingContents
-//     }
-//   }
-//   var newItems = [...state.sprites.items, item]
-//   dispatch([{
-//     type: 'UPDATE_BAGS',
-//     bags: newBags,
-//   }, {
-//     type: 'UPDATE_ITEMS',
-//     items: newItems,
-//   }])
-// }
+const spitItem = () => appThunk((dispatch, getState) => {
+  const state = getState()
+  const hero = spritesSelectors.selectHero(state)
+  if (heroIsDead(state)) return
+  const length = state.inventory.bags.default.contents.length
+  if (length === 0) return
+  const newBags = produce(state.inventory.bags, draft => {
+    draft.default.contents.pop()
+  })
+  const item = produce(state.inventory.bags.default.contents[length - 1], draft => {
+    draft.x = hero.x
+    draft.y = hero.y
+  })
+  const newSprites = produce(state.sprites, draft => {
+    draft.push(item)
+  })
+  dispatch(bagsActions.setBags(newBags))
+  dispatch(spritesActions.setSprites(newSprites))
+})
 
 const resetGame = () => appThunk((dispatch, getState) => {
   dispatch(equippedActions.reset())
@@ -199,4 +158,5 @@ export const gameActions = {
   moveHero,
   getItems,
   resetGame,
+  spitItem,
 }

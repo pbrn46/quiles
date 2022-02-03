@@ -9,7 +9,6 @@ import { gameActions } from '../redux/actions'
 
 
 export function Game() {
-  // var [state, dispatch] = useStore()
   const view = useAppSelector(state => state.view)
   const dispatch = useAppDispatch()
   const state = useAppSelector(state => state)

@@ -29,8 +29,7 @@ function KeyController() {
           dispatch(gameActions.getItems())
           break
         case 's':
-          console.log("TODO: Reimplement spitItem()")
-          // actions.spitItem()
+          dispatch(gameActions.spitItem())
           break
         case 'r':
           dispatch(gameActions.resetGame())
