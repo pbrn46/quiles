@@ -5,6 +5,7 @@ import { Stats } from './Stats'
 import { draw } from '../lib/draw'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { viewActions } from '../redux/reducers/view'
+import { gameActions } from '../redux/actions'
 
 
 export function Game() {
@@ -12,9 +13,13 @@ export function Game() {
   const view = useAppSelector(state => state.view)
   const dispatch = useAppDispatch()
   const state = useAppSelector(state => state)
-
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    dispatch(gameActions.resetGame())
+  }, [dispatch])
+
   useEffect(() => {
     if (!canvasRef.current) return
     setCtx(canvasRef.current.getContext('2d'))
